@@ -31,18 +31,23 @@ console.log(arr, "<<<<<< arr")
 console.log(playingArray, "<<<<< playArray")
 console.log(alienArray, "<<<<< alienArray")
 
-console.log("backend log")
-
 io.on('connection', (socket) => {
   console.log("socket connection successful")
   socket.on('find', (e) => {
     socket.emit('your-socketid', socket.id);
+    console.log(socket.id, "<<<<<socket.id");
+    console.log(e, "<<<<<<<< e");
     console.log(e.name, "<<<<<<< e.name")
-    if (e.name !== null) {
+    console.log(typeof e.name, "<<<<<<< type of e.name");
+    if (e.name !== null && e.name !== "") {
       arr.push({ name: e.name, socket_id: socket.id });
       alienArray.push(e.aliens);
 
-      if (arr.length >= 2) {
+      // if (arr.length >= 2 & arr[0].socket_id === arr[1].socket_id) {
+        // alienArray.shift()
+      // }
+
+      if (arr.length >= 2 && arr[0].socket_id !== arr[1].socket_id) {
         let p1obj = {
           p1name: arr[0].name,
           p1socketId: arr[0].socket_id,
