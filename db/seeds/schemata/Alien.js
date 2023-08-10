@@ -15,8 +15,7 @@ const alienSchema = new mongoose.Schema({
         max: 4,
         required: true,
         validate: {
-            validator: v => v % 2 === 0,
-            message: props => `${props.value} is not an even number`
+            validator: v => v % 2 === 0
         }
     },
     eyeColour: String,

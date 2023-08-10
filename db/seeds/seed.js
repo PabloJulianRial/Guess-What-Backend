@@ -3,7 +3,6 @@ const Alien = require("./schemata/Alien");
 const Question = require("./schemata/Question");
 const User = require("./schemata/User")
 const connectDB = require("../connectMongo");
-const formatQuestions = require("../../utils/formatQuestions");
 
 connectDB();
 
@@ -41,7 +40,6 @@ async function seed(attributes, questions, testUsers) {
           alienProp: attribute,
           checkFor: variation,
           question: questions[attribute][variation] + "?"
-          // question: formatQuestions(attribute, variation)
         };
         const question = new Question(questionObj);
         await question.save();
