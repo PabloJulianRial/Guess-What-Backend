@@ -39,16 +39,13 @@ io.on('connection', (socket) => {
     console.log(e, "<<<<<<<< e");
     console.log(e.name, "<<<<<<< e.name")
     console.log(typeof e.name, "<<<<<<< type of e.name");
+
     if (e.name !== null && e.name !== "") {
-      arr.push({ name: e.name, socket_id: socket.id });
-      alienArray.push(e.aliens);
-
-      // if (arr.length === 2 && arr[0].socket_id === arr[1].socket_id) {
-      //   alienArray.shift()
-      // }
-
-      if (arr.length === 2 && arr[0].socket_id !== arr[1].socket_id) {
-        let p1obj = {
+      if (!arr.includes(e.name)) {
+        arr.push({ name: e.name, socket_id: socket.id });
+        alienArray.push(e.aliens);
+        if (arr.length >= 2 && arr[0].socket_id !== arr[1].socket_id) {
+          let p1obj = {
           p1name: arr[0].name,
           p1socketId: arr[0].socket_id,
           p1alien: alienArray[0][Math.floor(Math.random() * 24)],
@@ -75,6 +72,7 @@ io.on('connection', (socket) => {
 
         playingArray.splice(0, 1);
       }
+    }
     }
   });
   socket.on('start-game', () => {
